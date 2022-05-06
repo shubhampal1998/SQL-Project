@@ -1,0 +1,78 @@
+---PROJECT
+
+--There are two tables or datasets are available namely customer and 
+--Item.
+
+--Task.
+--1.Select data where states name does not start from A,B and C.
+--2.Retail price should be in between 15 to 90.
+--3.Arrange CustomerID in descending order.
+--4.What is the minimum retail price ?
+--5.What is the maximum retail price ?
+--6.What is the Average retail price ?
+--7.What is the total retail price of selected data?
+--8.How many customers belongs from California state?
+--9.How many customers got discount above 8%?
+--10.Create a new variable which contain average retail price.
+--11.How many transactions from Texas state?
+--12.Which sate has maximum transaction
+
+--Code
+
+create database sql_project;
+select *from customer;
+select *from item;
+use sql_project;
+
+--1.
+
+select *from customer where shipping_STate not like 'A%' and shipping_state not like 'B%' and shipping_state not like 'C%';
+
+--2.
+
+select *from item where retail_price >= 15 and retail_price  <=90;
+
+--3.
+
+select *from customer order by (customerid) desc;
+select *from item order by (customerid) desc;
+
+--4.
+
+select min(retail_price) from item;
+
+--5.
+
+select max(retail_price) from item;
+
+--6.
+
+select avg(retail_price) from item;
+
+--7.
+
+select sum(retail_price) from item;
+
+--8.
+
+select count(shipping_state) from customer;
+select count(shipping_state) from customer where shipping_state like 'california';
+
+--9.
+
+select count(loyalty_discount) from item;
+select count(loyalty_discount) from item where loyalty_discount >= '0.08';
+
+--10.
+
+select avg(retail_price) as avg_retail from item;
+
+--11.
+
+select count(transactionid) from customer where shipping_state like 'texas';
+
+--12.
+
+create view max_transaction as select Shipping_State, count(Shipping_State) as nos from Customer group by Shipping_State ;
+select * from max_transaction where nos = (select max (nos) from max_transaction);
+
